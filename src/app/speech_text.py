@@ -26,16 +26,16 @@ def auto_summriztion(text):
 
 def speech_to_text_and_summarize():
 
-    # Streamlit app
+    # Streamlit app title
     st.title("Auto call summarizer")
+    start_recording = st.button("Start Recording")
 
     # Record button
-    if st.button("Record"):
+    if start_recording:
         with sr.Microphone() as source:
             st.info("Recording... Speak now!")
             recognizer=sr.Recognizer() 
-            audio = recognizer.listen(source, timeout=10)
-            st.success("Recording complete!")
+            audio = recognizer.listen(source, timeout=None)
 
         # Speech to text
         st.subheader("Transcription:")
@@ -52,6 +52,9 @@ def speech_to_text_and_summarize():
             summary = auto_summriztion(text)
         except Exception as e:
             st.error(f"Error in auto summarization: {e}")
+    stop_recording = st.button("Stop Recording", disabled=not start_recording)
+    if stop_recording:
+        st.success("Recording stopped!")
 
 if __name__ == "__main__":
     speech_to_text_and_summarize()
