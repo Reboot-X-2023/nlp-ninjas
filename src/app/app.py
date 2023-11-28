@@ -1,6 +1,27 @@
 # Importing necessary libraries
 import streamlit as st
 
+
+
+
+def add_user(user_details):
+    pass
+
+
+def set_availability():
+    pass
+
+def receive_notification():
+    pass
+
+def accept_reject():
+    pass
+
+
+
+
+
+
 # Streamlit app
 def main():
     # Title of the app
