@@ -107,15 +107,6 @@ def main():
         st.session_state["requests"] = [
             (
                 {
-                    "request_id": 1234,
-                    "status": status_options[0],
-                    "transcription": summary_message,
-                    "date": datetime.date.today(),
-                },
-                True,
-            ),
-            (
-                {
                     "request_id": 1235,
                     "status": status_options[1],
                     "guest_name": "Amanda",
@@ -124,6 +115,15 @@ def main():
                     "date": datetime.date.today(),
                 },
                 False,
+            ),
+            (
+                {
+                    "request_id": 1234,
+                    "status": status_options[0],
+                    "transcription": summary_message,
+                    "date": datetime.date.today(),
+                },
+                True,
             ),
         ]
 
@@ -159,8 +159,6 @@ def main():
                 "Accomodation", accomodation_types, 1, key="host_accomodation"
             )
 
-            update_details = st.button("Update Details")
-
             today = datetime.datetime.now()
             next_year = today.year + 1
             jan_1 = datetime.date(next_year, 1, 1)
@@ -173,10 +171,14 @@ def main():
                 dec_31,
                 format="MM.DD.YYYY",
             )
+            update_details = st.button("Update Details")
+            if update_details:
+                st.warning("Profile Updated!")
+
         with host_col2:
             st.title("Host Inbox")
 
-            for req, telephone in st.session_state["requests"]:
+            for req, telephone in st.session_state["requests"][:1]:
                 display_requests_for_host(req, telephone)
 
     # ! Charity
@@ -198,11 +200,10 @@ def main():
 
             # Display the table
             st.write("Sample Table:")
-            
             st.table(df)
 
         with col2:
-            st.title("Charity Inbox")
+            st.title("Charity Requests Inbox")
 
             for request, telephone in st.session_state["requests"]:
                 display_requests(request, telephone)
@@ -212,7 +213,7 @@ def main():
 
     # ! Requests
     with tab3:
-        st.title("Requests")
+        # st.title("Requests")
         request_col1, request_col2 = st.columns(2)
 
         with request_col1:
